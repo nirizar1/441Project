@@ -83,12 +83,12 @@ void logFile(bool exists, int arraySize, double clockTicks, double seconds){
 
     if(!exists){
         ofstream myFile("results.csv");
-        cout << "File creation successful" << endl;
+        //cout << "File creation successful" << endl;
     }
         
     std::vector<std::pair<std::string, std::vector<double>>> vals = {{"", size_double}, {"", ticks}, {"", secondsVector}};
     write_csv("results.csv", vals);
-    cout << "Write successful" << endl;
+    //cout << "Write successful" << endl;
 }
 
 void insertionSort(int array[], int arrSize){
@@ -103,11 +103,10 @@ void insertionSort(int array[], int arrSize){
     }
 }
 
-int main(){
 
-    srand (time(NULL)); //random seed
+void test_cases(int size){
 
-    int arrSize = 1000;      //size of array
+    int arrSize = size;      //size of array
     int randArray[arrSize]; //creating empty array
 
     for(int i = 0; i < arrSize; i++){           //assigning random values in array
@@ -124,10 +123,22 @@ int main(){
     stop = clock();
     T = stop - start;           //number of clock ticks the algorithm took
 
-    cout << "Sorting " << arrSize << " array elements in random array" << " took " << T<< " clock ticks ("<< T/CLOCKS_PER_SEC << " seconds)!" << endl;
+    //cout << "Sorting " << arrSize << " array elements in random array" << " took " << T<< " clock ticks ("<< T/CLOCKS_PER_SEC << " seconds)!" << endl;
 
     bool exists = test();                 //check if the output file exists
 
     logFile(exists, arrSize, T, T/CLOCKS_PER_SEC); //writing to the log file
+}
+
+int main(){
+
+    srand (time(NULL)); //random seed
+
+    for(int i = 0; i < 1000; i++){
+        int randomArrSize = rand() % 100000 + 4000;
+        test_cases(randomArrSize);
+    }
+
+    cout << "Program end." << endl;
     return 0;
 }
