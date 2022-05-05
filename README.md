@@ -7,3 +7,4 @@ Parameters:
 - Floor integer value
 - Ceiling integer value
 
+Returns average runtime (sum of duration/number of test cases) for each algorithm.
