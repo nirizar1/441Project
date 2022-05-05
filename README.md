@@ -1,12 +1,9 @@
 # 441Project
-Quick Sort vs Insertion sort project - Sherman S22
+Insertion Sort, Iterative vs Recursive.
 
+Parameters:
+- Number of test cases
+- Array size
+- Floor integer value
+- Ceiling integer value
 
-To run this project add the files to the GL server in the same directory. Once this is done complete the following steps in the command line:
-
-make
-
-driver
-
-
-Then just be patient while your two csv's are created!
