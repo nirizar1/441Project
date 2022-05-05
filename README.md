@@ -1,4 +1,4 @@
-# 441Project
+# Insertion Sort Compare
 Insertion Sort, Iterative vs Recursive.
 
 Parameters:
