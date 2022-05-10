@@ -1,4 +1,5 @@
 #include "bucketSort.h"
+#include "insertionSort.h"
 #include <vector>
 #include <algorithm>
 using namespace std;
@@ -16,7 +17,7 @@ void bucketSort(float arr[], int n){
   
   // 3) Sort individual buckets
   for (int i = 0; i < n; i++)
-    sort(b[i].begin(), b[i].end());
+    insertionSort(&b[i][0], b[i].size());
  
   // 4) Concatenate all buckets into arr[]
   int index = 0;
