@@ -4,5 +4,7 @@
 
 void partition(float a[], int l, int r, int& i, int& j);
 void threeWayQuicksort(float a[], int l, int r);
-
+void swap(float* a, float* b);
+int partition (float arr[], int low, int high);
+void quickSort(float arr[], int low, int high);
 #endif
