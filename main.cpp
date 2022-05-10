@@ -18,8 +18,8 @@ using namespace std; //namespace
 
 int N_DEGREE = 0; // N degree of sortedness for the array 
 int NUM_TEST_CASES = 10000; // number of desired test cases 
-int ARRAY_TEST_RANGE = 999;
-int ARRAY_RANGE_FLOOR = 10;
+int ARRAY_TEST_RANGE = 9999;
+int ARRAY_RANGE_FLOOR = 1000;
 
 void generateTestArray(int *array, int size, int percent);
 
@@ -34,6 +34,8 @@ bool test(string file);
 void logFile(string file, bool exists, int arraySize, double clockTicks, double seconds, double memorySize, int algoCategory);
 
 void test_cases_insertion_sort(int size);
+
+void test_cases_3_way_quick_sort(int size);
 
 void test_cases_quick_sort(int size);
 
@@ -56,15 +58,21 @@ int main(){
     }
     cout << "Insertion sort tests completed." << endl;
     cout << endl;
-     
+     */
     cout << "Loading test cases for quick sort. Please wait." << endl;
     for(int i = 0; i < test_size; i++){
         int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
         test_cases_quick_sort(randomArrSize);
     }
     cout << "Quick Sort tests completed."<< endl;
-    
-*/
+    cout << "Loading test cases for 3-way quick sort. Please wait." << endl;
+    for(int i = 0; i < test_size; i++){
+        int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+        test_cases_3_way_quick_sort(randomArrSize);
+    }
+    cout << "3-way Quick Sort tests completed."<< endl;
+
+/*
     cout << "Loading test cases for bucket sort. Please wait." << endl;
     for(int i = 0; i < test_size; i++){
         int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
@@ -80,7 +88,7 @@ int main(){
     }
     
     cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
-    
+    */
    /*
    int x = 20000;
    float *A = new float[x];
@@ -308,6 +316,36 @@ void test_cases_quick_sort(int size){
   int startIndex = 0;
   int endIndex = arrSize - 1;
   int category = 1;
+
+  float randArray[arrSize]; //creating empty array
+  
+  generateFloatArray(randArray, arrSize, N_DEGREE);
+  
+  
+  clock_t start, stop;    //stores the clock ticks while running the program
+  double T = 0.0;         // number of total ticks
+  
+  start = clock();        //clock start
+  
+  quickSort(randArray,startIndex, endIndex);  //algorithm function callS
+  
+  stop = clock();
+  T = stop - start;           //number of clock ticks the algorithm took
+  
+  
+  bool exists = test("master.csv");                 //check if the output file exists
+  
+  logFile("master.csv",exists, arrSize, T, T/CLOCKS_PER_SEC, sizeof(randArray),category); //writing to the log file
+}
+
+/**
+* TEST CASE FUNCTION FOR 3WAY QUICK SORT
+**/
+void test_cases_3_way_quick_sort(int size){
+  int arrSize = size;
+  int startIndex = 0;
+  int endIndex = arrSize - 1;
+  int category = 5;
 
   float randArray[arrSize]; //creating empty array
   
