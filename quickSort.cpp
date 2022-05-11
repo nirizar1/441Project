@@ -1,4 +1,5 @@
 #include "quickSort.h"
+#include "insertionSort.h"
 #include <iostream>
 #include <stdio.h>
 using namespace std;
@@ -119,5 +120,27 @@ void quickSort(float arr[], int low, int high)
         // partition and after partition
         quickSort(arr, low, pi - 1);
         quickSort(arr, pi + 1, high);
+    }
+}
+
+void hybridSort(float a[], int l, int r, int fulcrum)
+{
+    if (r <= l)
+        return;
+    if(r + 1 < fulcrum)
+    {
+        insertionSort(a, r + 1);
+        break;
+    }
+    else
+    {
+        int i, j;
+    
+        // Note that i and j are passed as reference
+        partition(a, l, r, i, j);
+    
+        // Recur
+        threeWayQuicksort(a, l, j);
+        threeWayQuicksort(a, i, r);
     }
 }
