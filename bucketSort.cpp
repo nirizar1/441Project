@@ -40,7 +40,7 @@ void modifiedBucketSort(float arr[], int n, int fulcrum){
   
   // 3) Sort individual buckets
   for (int i = 0; i < n; i++)
-    hybridSort(&b[i][0], 0, b[i].size(), fulcrum);
+    hybridSort(&b[i][0], 0, b[i].size() - 1, fulcrum);
  
   // 4) Concatenate all buckets into arr[]
   int index = 0;
