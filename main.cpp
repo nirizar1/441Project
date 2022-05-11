@@ -18,8 +18,8 @@ using namespace std; //namespace
 
 int N_DEGREE = 0; // N degree of sortedness for the array 
 int NUM_TEST_CASES = 10000; // number of desired test cases 
-int ARRAY_TEST_RANGE = 9999;
-int ARRAY_RANGE_FLOOR = 1000;
+int ARRAY_TEST_RANGE = 999;
+int ARRAY_RANGE_FLOOR = 10;
 
 void generateTestArray(int *array, int size, int percent);
 
@@ -49,72 +49,53 @@ int main(){
     srand (time(NULL)); //random seed
 
     int test_size = NUM_TEST_CASES; // number of test cases to be compeleted
-  /*
-    cout << "Loading test cases for insertion sort. Please wait." << endl;
-    for(int i = 0; i < test_size; i++){
-        int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-        test_cases_insertion_sort(randomArrSize);
+
+    while(N_DEGREE <= 100)
+      {
+        cout << "Loading test cases for insertion sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_insertion_sort(randomArrSize);
+            
+        }
+        cout << "Insertion sort tests completed." << endl;
+        cout << endl;
         
-    }
-    cout << "Insertion sort tests completed." << endl;
-    cout << endl;
-     */
-    cout << "Loading test cases for quick sort. Please wait." << endl;
-    for(int i = 0; i < test_size; i++){
-        int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-        test_cases_quick_sort(randomArrSize);
-    }
-    cout << "Quick Sort tests completed."<< endl;
-    cout << "Loading test cases for 3-way quick sort. Please wait." << endl;
-    for(int i = 0; i < test_size; i++){
-        int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-        test_cases_3_way_quick_sort(randomArrSize);
-    }
-    cout << "3-way Quick Sort tests completed."<< endl;
+        cout << "Loading test cases for quick sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_quick_sort(randomArrSize);
+        }
 
-/*
-    cout << "Loading test cases for bucket sort. Please wait." << endl;
-    for(int i = 0; i < test_size; i++){
-        int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-        test_cases_bucket_sort(randomArrSize);
-    }
-    cout << "Bucket Sort tests completed. "<< endl;
+        cout << "Quick Sort tests completed."<< endl;
+        cout << "Loading test cases for 3-way quick sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_3_way_quick_sort(randomArrSize);
+        }
+        cout << "3-way Quick Sort tests completed."<< endl;
     
 
-  cout << "Loading test cases for cudi sort. Please wait." << endl;
-    for(int i = 0; i < test_size; i++){
-      int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-      test_cases_cudi_sort(randomArrSize);
-    }
-    
-    cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
-    */
-   /*
-   int x = 20000;
-   float *A = new float[x];
-   generateFloatArray(A, x, 0);
-      clock_t start, stop;    //stores the clock ticks while running the program
-  double T = 0.0;         // number of total ticks
-  
-  start = clock();        //clock start
-  
-  cudiSort(A,10);   //algorithm function callS
-  
-  stop = clock();
-  T = stop - start;  
-  cout << "Cudi Sort: " << T/CLOCKS_PER_SEC << endl;
-  float *A2 = new float[x];
-  generateFloatArray(A2, x, 0);
-  T = 0.0;         // number of total ticks
-  
-  start = clock();        //clock start
-  
-  bucketSort(A2,10);   //algorithm function callS
-  
-  stop = clock();
-  T = stop - start;  
-  cout << "Bucket Sort: " << T/CLOCKS_PER_SEC << endl;
-  */
+
+        cout << "Loading test cases for bucket sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_bucket_sort(randomArrSize);
+        }
+        cout << "Bucket Sort tests completed. "<< endl;
+        
+
+      cout << "Loading test cases for cudi sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+          int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+          test_cases_cudi_sort(randomArrSize);
+        }
+        
+        cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
+        N_DEGREE += 25;
+      }
+
+   
     return 0;
 }
 
@@ -249,7 +230,7 @@ bool test(string file){
 *** 3 - Seconds
 *** 4 - Memory
 *** 5 - Percent_Sort
-*** 6 - Algorithm: (1 = quick, 2 = insertion, 3 = bucket, 4 = cudi)
+*** 6 - Algorithm: (1 = 3way quick, 2 = insertion, 3 = bucket, 4 = cudi, 5 = base quick)
 ***/
 void logFile(string file, bool exists, int arraySize, double clockTicks, double seconds, double memorySize, int algoCategory){
 
