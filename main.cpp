@@ -18,8 +18,8 @@ using namespace std; //namespace
 
 // Test Parameters
 int N_DEGREE = 0; // N degree of sortedness for the array 
-int NUM_TEST_CASES = 10000; // number of desired test cases 
-int ARRAY_TEST_RANGE = 999;
+int NUM_TEST_CASES = 10; // number of desired test cases 
+int ARRAY_TEST_RANGE = 100;
 int ARRAY_RANGE_FLOOR = 10;
 
 // hybridSort, modifiedBucketSort, and cudiSort fulcrum parameters
@@ -61,6 +61,7 @@ int main(){
 
     while(N_DEGREE <= 100)
       {
+        cout << "Degree of Sortedness = " << N_DEGREE << "%" << endl;
         // *****************TESTS FOR BASE SORTING ALGORITHMS***************************
         cout << "Loading test cases for insertion sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -113,12 +114,11 @@ int main(){
           int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
           test_cases_cudi_sort(randomArrSize);
         }
-        
-        cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
+        cout << "Cudi Sort tests completed."<< endl;
+        cout << endl;
         N_DEGREE += 25;
       }
-
-   
+      cout <<  \n PROGRAM END << endl;
     return 0;
 }
 
