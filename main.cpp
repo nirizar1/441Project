@@ -61,6 +61,7 @@ int main(){
 
     while(N_DEGREE <= 100)
       {
+        // *****************TESTS FOR BASE SORTING ALGORITHMS***************************
         cout << "Loading test cases for insertion sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
             int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
@@ -76,12 +77,6 @@ int main(){
         }
 
         cout << "Quick Sort tests completed."<< endl;
-        cout << "Loading test cases for 3-way quick sort. Please wait." << endl;
-        for(int i = 0; i < test_size; i++){
-            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
-            test_cases_3_way_quick_sort(randomArrSize);
-        }
-        cout << "3-way Quick Sort tests completed."<< endl;
 
         cout << "Loading test cases for bucket sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -89,16 +84,37 @@ int main(){
             test_cases_bucket_sort(randomArrSize);
         }
         cout << "Bucket Sort tests completed. "<< endl;
+
+        // *****************TESTS FOR BASE iMRPOVED VARIATIONS OF BASE ALGORITHMS***************************
+        cout << "Loading test cases for 3-way quick sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_3_way_quick_sort(randomArrSize);
+        }
+        cout << "3-way Quick Sort tests completed."<< endl;
+
+         cout << "Loading test cases for Hybrid sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_hybrid_sort(randomArrSize);
+        }
+        cout << "Hybrid Sort tests completed."<< endl;
         
-      /*
-      cout << "Loading test cases for cudi sort. Please wait." << endl;
+        cout << "Loading test cases for modified bucket sort. Please wait." << endl;
+        for(int i = 0; i < test_size; i++){
+            int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
+            test_cases_modified_bucket_sort(randomArrSize);
+        }
+        cout << "Modified bucket Sort tests completed. "<< endl;
+        
+        // *****************TESTS FOR CUDI SORT***************************
+        cout << "Loading test cases for cudi sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
           int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
           test_cases_cudi_sort(randomArrSize);
         }
         
         cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
-      */
         N_DEGREE += 25;
       }
 
