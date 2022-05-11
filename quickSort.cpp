@@ -130,7 +130,6 @@ void hybridSort(float a[], int l, int r, int fulcrum)
     if(r + 1 < fulcrum)
     {
         insertionSort(a, r + 1);
-        break;
     }
     else
     {
