@@ -16,10 +16,15 @@
 #include "cudiSort.h"
 using namespace std; //namespace
 
+// Test Parameters
 int N_DEGREE = 0; // N degree of sortedness for the array 
 int NUM_TEST_CASES = 10000; // number of desired test cases 
 int ARRAY_TEST_RANGE = 999;
 int ARRAY_RANGE_FLOOR = 10;
+
+// hybridSort, modifiedBucketSort, and cudiSort fulcrum parameters
+int FULCRUM_HS = 100;
+int FULCRUM_CS = 100;
 
 void generateTestArray(int *array, int size, int percent);
 
@@ -35,11 +40,15 @@ void logFile(string file, bool exists, int arraySize, double clockTicks, double 
 
 void test_cases_insertion_sort(int size);
 
-void test_cases_3_way_quick_sort(int size);
-
 void test_cases_quick_sort(int size);
 
+void test_cases_3_way_quick_sort(int size);
+
+void test_cases_hybrid_sort(int size);
+
 void test_cases_bucket_sort(int size);
+
+void test_cases_modified_bucket_sort(int size);
 
 void test_cases_cudi_sort(int size);
 
@@ -59,7 +68,6 @@ int main(){
             
         }
         cout << "Insertion sort tests completed." << endl;
-        cout << endl;
         
         cout << "Loading test cases for quick sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -74,8 +82,6 @@ int main(){
             test_cases_3_way_quick_sort(randomArrSize);
         }
         cout << "3-way Quick Sort tests completed."<< endl;
-    
-
 
         cout << "Loading test cases for bucket sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -84,7 +90,7 @@ int main(){
         }
         cout << "Bucket Sort tests completed. "<< endl;
         
-
+      /*
       cout << "Loading test cases for cudi sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
           int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
@@ -92,6 +98,7 @@ int main(){
         }
         
         cout << "Cudi Sort tests completed. \n PROGRAM END"<< endl;
+      */
         N_DEGREE += 25;
       }
 
@@ -349,7 +356,35 @@ void test_cases_3_way_quick_sort(int size){
   logFile("master.csv",exists, arrSize, T, T/CLOCKS_PER_SEC, sizeof(randArray),category); //writing to the log file
 }
 
+/**
+* TEST CASE FUNCTION FOR HYBRID QUICK SORT
+**/
+void test_cases_hybrid_sort(int size){
+  int arrSize = size;
+  int startIndex = 0;
+  int endIndex = arrSize - 1;
+  int category = 6;
 
+  float randArray[arrSize]; //creating empty array
+  
+  generateFloatArray(randArray, arrSize, N_DEGREE);
+  
+  
+  clock_t start, stop;    //stores the clock ticks while running the program
+  double T = 0.0;         // number of total ticks
+  
+  start = clock();        //clock start
+  
+  hybridSort(randArray,startIndex, endIndex, FULCRUM_HS);  //algorithm function callS
+  
+  stop = clock();
+  T = stop - start;           //number of clock ticks the algorithm took
+  
+  
+  bool exists = test("master.csv");                 //check if the output file exists
+  
+  logFile("master.csv",exists, arrSize, T, T/CLOCKS_PER_SEC, sizeof(randArray),category); //writing to the log file
+}
 /**
 * TEST CASE FUNCTION FOR BUCKET SORT
 **/
@@ -377,6 +412,32 @@ void test_cases_bucket_sort(int size){
   logFile("master.csv",exists, arrSize, T, T/CLOCKS_PER_SEC, sizeof(randArray), category); //writing to the log file
 }
 
+/**
+* TEST CASE FUNCTION FOR MODIFIED BUCKET SORT
+**/
+void test_cases_modified_bucket_sort(int size){
+  int arrSize = size;      //size of array
+  float randArray[arrSize]; //creating empty array
+  int category = 7;
+  
+  generateFloatArray(randArray, arrSize, N_DEGREE);
+  //cout << "GENERATED TEST ARRAY" << endl;
+  
+  clock_t start, stop;    //stores the clock ticks while running the program
+  double T = 0.0;         // number of total ticks
+  
+  start = clock();
+  //cout << "CALLING BUCKET SORT FROM TEST CASE FUNCTION" << endl;
+  modifiedBucketSort(randArray, arrSize, FULCRUM_HS); //algorithm function callS
+  
+  stop = clock();
+  T = stop - start;           //number of clock ticks the algorithm took
+  //cout << "BUCKET SORT SUCCESSFUL" <<endl;
+  
+  bool exists = test("master.csv");                 //check if the output file exists
+  
+  logFile("master.csv",exists, arrSize, T, T/CLOCKS_PER_SEC, sizeof(randArray), category); //writing to the log file
+}
 
 void test_cases_cudi_sort(int size){
   int category = 4;           //algorithm category value that will be written into csv
@@ -392,7 +453,7 @@ void test_cases_cudi_sort(int size){
   
   start = clock();        //clock start
   
-  cudiSort(randArray, size);  //algorithm function callS
+  cudiSort(randArray, size, FULCRUM_HS, FULCRUM_CS);  //algorithm function callS
   
   stop = clock();
   T = stop - start;           //number of clock ticks the algorithm took 
