@@ -8,7 +8,7 @@ using namespace std;
 // A utility function to swap two elements
 void swap(float* a, float* b)
 {
-    int t = *a;
+    float t = *a;
     *a = *b;
     *b = t;
 }
@@ -88,7 +88,7 @@ void threeWayQuicksort(float a[], int l, int r)
 }
 int partition (float arr[], int low, int high)
 {
-    float pivot = arr[high]; // pivot
+    float pivot = arr[high];// pivot
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
  
     for (int j = low; j <= high - 1; j++)
@@ -143,3 +143,4 @@ void hybridSort(float a[], int l, int r, int fulcrum)
         threeWayQuicksort(a, i, r);
     }
 }
+
