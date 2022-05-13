@@ -8,4 +8,5 @@ void swap(float* a, float* b);
 int partition (float arr[], int low, int high);
 void quickSort(float arr[], int low, int high);
 void hybridSort(float a[], int l, int r, int fulcrum);
+int degree_finder(int degree);
 #endif

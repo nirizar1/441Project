@@ -18,13 +18,14 @@ using namespace std; //namespace
 
 // Test Parameters
 int N_DEGREE = 0; // N degree of sortedness for the array 
-int NUM_TEST_CASES = 10; // number of desired test cases 
-int ARRAY_TEST_RANGE = 100;
+int NUM_TEST_CASES = 10000; // number of desired test cases 
+int ARRAY_TEST_RANGE = 999;
 int ARRAY_RANGE_FLOOR = 10;
 
 // hybridSort, modifiedBucketSort, and cudiSort fulcrum parameters
-int FULCRUM_HS = 100;
-int FULCRUM_CS = 100;
+int FULCRUM_HS = 125;
+int FULCRUM_CS = 380;
+int FULCRUM = degree_finder(N_DEGREE);
 
 void generateTestArray(int *array, int size, int percent);
 
@@ -61,7 +62,9 @@ int main(){
 
     while(N_DEGREE <= 100)
       {
+        
         cout << "Degree of Sortedness = " << N_DEGREE << "%" << endl;
+        /*
         // *****************TESTS FOR BASE SORTING ALGORITHMS***************************
         cout << "Loading test cases for insertion sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -93,7 +96,8 @@ int main(){
             test_cases_3_way_quick_sort(randomArrSize);
         }
         cout << "3-way Quick Sort tests completed."<< endl;
-
+*/
+        FULCRUM = degree_finder(N_DEGREE);
          cout << "Loading test cases for Hybrid sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
             int randomArrSize = rand() % ARRAY_TEST_RANGE + ARRAY_RANGE_FLOOR;
@@ -107,7 +111,7 @@ int main(){
             test_cases_modified_bucket_sort(randomArrSize);
         }
         cout << "Modified bucket Sort tests completed. "<< endl;
-        
+        /*
         // *****************TESTS FOR CUDI SORT***************************
         cout << "Loading test cases for cudi sort. Please wait." << endl;
         for(int i = 0; i < test_size; i++){
@@ -116,9 +120,12 @@ int main(){
         }
         cout << "Cudi Sort tests completed."<< endl;
         cout << endl;
+        */
         N_DEGREE += 25;
       }
-      cout <<  \n PROGRAM END << endl;
+      cout <<  "\n PROGRAM END" << endl;
+      
+
     return 0;
 }
 
@@ -253,7 +260,8 @@ bool test(string file){
 *** 3 - Seconds
 *** 4 - Memory
 *** 5 - Percent_Sort
-*** 6 - Algorithm: (1 = 3way quick, 2 = insertion, 3 = bucket, 4 = cudi, 5 = base quick)
+*** 6 - Algorithm: (1 = quick, 2 = insertion, 3 = bucket, 4 = cudi, 5 = 3way quick
+6 = hyrbid, 7 = modifbucketsort, 8 = fixed quicksort)
 ***/
 void logFile(string file, bool exists, int arraySize, double clockTicks, double seconds, double memorySize, int algoCategory){
 
@@ -319,7 +327,7 @@ void test_cases_quick_sort(int size){
   int arrSize = size;
   int startIndex = 0;
   int endIndex = arrSize - 1;
-  int category = 1;
+  int category = 8;
 
   float randArray[arrSize]; //creating empty array
   
@@ -388,10 +396,11 @@ void test_cases_hybrid_sort(int size){
   
   clock_t start, stop;    //stores the clock ticks while running the program
   double T = 0.0;         // number of total ticks
-  
+
   start = clock();        //clock start
   
-  hybridSort(randArray,startIndex, endIndex, FULCRUM_HS);  //algorithm function callS
+  
+  hybridSort(randArray,startIndex, endIndex, FULCRUM);  //algorithm function callS
   
   stop = clock();
   T = stop - start;           //number of clock ticks the algorithm took
@@ -441,10 +450,9 @@ void test_cases_modified_bucket_sort(int size){
   
   clock_t start, stop;    //stores the clock ticks while running the program
   double T = 0.0;         // number of total ticks
-  
   start = clock();
   //cout << "CALLING BUCKET SORT FROM TEST CASE FUNCTION" << endl;
-  modifiedBucketSort(randArray, arrSize, FULCRUM_HS); //algorithm function callS
+  modifiedBucketSort(randArray, arrSize, FULCRUM); //algorithm function callS
   
   stop = clock();
   T = stop - start;           //number of clock ticks the algorithm took

@@ -4,7 +4,7 @@
 #include <stdio.h>
 using namespace std;
 #include <bits/stdc++.h>
- 
+ int FULCRUM_HS_A[4] = {126,117,117,127};
 // A utility function to swap two elements
 void swap(float* a, float* b)
 {
@@ -125,22 +125,25 @@ void quickSort(float arr[], int low, int high)
 
 void hybridSort(float a[], int l, int r, int fulcrum)
 {
-    if (r <= l)
-        return;
     if(r + 1 < fulcrum)
     {
         insertionSort(a, r + 1);
     }
     else
     {
-        int i, j;
-    
-        // Note that i and j are passed as reference
-        partition(a, l, r, i, j);
-    
-        // Recur
-        threeWayQuicksort(a, l, j);
-        threeWayQuicksort(a, i, r);
+        quickSort(a, l, r);
     }
+}
+
+int degree_finder(int degree)
+{
+    for(int i = 0; i < 4; i++)
+    {
+        if(degree == i*25)
+        {
+            return FULCRUM_HS_A[i];
+        }
+    }
+    return 122;
 }
 
