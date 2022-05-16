@@ -4,7 +4,8 @@
 #include <stdio.h>
 using namespace std;
 #include <bits/stdc++.h>
- int FULCRUM_HS_A[4] = {126,117,117,127};
+ int CUTOFF[4] = {126,117,117,127};
+ int CUTOFF_V = 121;
 // A utility function to swap two elements
 void swap(float* a, float* b)
 {
@@ -13,84 +14,35 @@ void swap(float* a, float* b)
     *b = t;
 }
 
-// Utility function to swap elements `A[i]` and `A[j]` in an array
-void partition(float a[], int l, int r, int& i, int& j)
+int c_partition (float arr[], int low, int high, int cutoff)
 {
-    i = l - 1, j = r;
-    int p = l - 1, q = r;
-    float v = a[r];
- 
-    while (true) {
-        // From left, find the first element greater than
-        // or equal to v. This loop will definitely
-        // terminate as v is last element
-        while (a[++i] < v)
-            ;
- 
-        // From right, find the first element smaller than
-        // or equal to v
-        while (v < a[--j])
-            if (j == l)
-                break;
- 
-        // If i and j cross, then we are done
-        if (i >= j)
-            break;
- 
-        // Swap, so that smaller goes on left greater goes
-        // on right
-        swap(a[i], a[j]);
- 
-        // Move all same left occurrence of pivot to
-        // beginning of array and keep count using p
-        if (a[i] == v) {
-            p++;
-            swap(a[p], a[i]);
-        }
- 
-        // Move all same right occurrence of pivot to end of
-        // array and keep count using q
-        if (a[j] == v) {
-            q--;
-            swap(a[j], a[q]);
-        }
+    float pivot = arr[high];// pivot
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+    if((high - low + 1) <= cutoff)
+    {
+        insertionSort(arr, high - low + 1);
+        return -1;
     }
- 
-    // Move pivot element to its correct index
-    swap(a[i], a[r]);
- 
-    // Move all left same occurrences from beginning
-    // to adjacent to arr[i]
-    j = i - 1;
-    for (int k = l; k < p; k++, j--)
-        swap(a[k], a[j]);
- 
-    // Move all right same occurrences from end
-    // to adjacent to arr[i]
-    i = i + 1;
-    for (int k = r - 1; k > q; k--, i++)
-        swap(a[i], a[k]);
-}
-// 3-way partition based quick sort
-void threeWayQuicksort(float a[], int l, int r)
-{
-    if (r <= l)
-        return;
- 
-    int i, j;
- 
-    // Note that i and j are passed as reference
-    partition(a, l, r, i, j);
- 
-    // Recur
-    threeWayQuicksort(a, l, j);
-    threeWayQuicksort(a, i, r);
+    else
+    {
+        for (int j = low; j <= high - 1; j++)
+        {
+            // If current element is smaller than the pivot
+            if (arr[j] < pivot)
+            {
+                i++; // increment index of smaller element
+                swap(&arr[i], &arr[j]);
+            }
+        }
+        swap(&arr[i + 1], &arr[high]);
+    }
+    return (i + 1);
 }
 int partition (float arr[], int low, int high)
 {
     float pivot = arr[high];// pivot
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
- 
+
     for (int j = low; j <= high - 1; j++)
     {
         // If current element is smaller than the pivot
@@ -101,6 +53,7 @@ int partition (float arr[], int low, int high)
         }
     }
     swap(&arr[i + 1], &arr[high]);
+    
     return (i + 1);
 }
  
@@ -123,15 +76,24 @@ void quickSort(float arr[], int low, int high)
     }
 }
 
-void hybridSort(float a[], int l, int r, int fulcrum)
+
+
+void hybridSort(float arr[], int low, int high, int cutoff)
 {
-    if(r + 1 < fulcrum)
+    if (low < high)
     {
-        insertionSort(a, r + 1);
-    }
-    else
-    {
-        quickSort(a, l, r);
+        /* pi is partitioning index, arr[p] is now
+        at right place */
+        int pi = c_partition(arr, low, high, cutoff);
+        if(pi == -1)
+        {
+            return;
+        }
+ 
+        // Separately sort elements before
+        // partition and after partition
+        hybridSort(arr, low, pi - 1, cutoff);
+        hybridSort(arr, pi + 1, high, cutoff);
     }
 }
 
@@ -141,7 +103,7 @@ int degree_finder(int degree)
     {
         if(degree == i*25)
         {
-            return FULCRUM_HS_A[i];
+            return CUTOFF[i];
         }
     }
     return 122;

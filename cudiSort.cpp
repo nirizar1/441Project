@@ -10,7 +10,7 @@ using namespace std;
 void cudiSort(float arr[], int n, int fulcrum_hs, int fulcrum_cs){
     //int score = scoreData(arr,size);
 
-
+  
     // Insertion sort for small inputs 
     if(n < fulcrum_cs){
         insertionSort(arr, n);

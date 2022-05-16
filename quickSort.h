@@ -2,11 +2,12 @@
 #define QUICKSORT_H
 
 
-void partition(float a[], int l, int r, int& i, int& j);
-void threeWayQuicksort(float a[], int l, int r);
+
 void swap(float* a, float* b);
 int partition (float arr[], int low, int high);
 void quickSort(float arr[], int low, int high);
-void hybridSort(float a[], int l, int r, int fulcrum);
+int c_partition (float arr[], int low, int high, int cutoff);
+void hybridSort(float arr[], int low, int high, int cutoff);
 int degree_finder(int degree);
+
 #endif
